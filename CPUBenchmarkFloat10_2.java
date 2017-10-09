@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 
-public class CPUBenchmark2{
+public class CPUBenchmarkFloat10_2{
 	public static final double runTime=1*1e9;
 	public double totalRun=0;
 	public static final int arrSize=20000;
@@ -23,7 +23,7 @@ public class CPUBenchmark2{
 
 		for(int i=0;i<4;i++){
 			int num = (int) Math.pow(2, i);
-			CPUBenchmark2 prog = new CPUBenchmark2();
+			CPUBenchmarkFloat10_2 prog = new CPUBenchmarkFloat10_2();
 			prog.generateRandAB();
 			prog.runBenchmarkFloat(num, 3, true);
 		}
@@ -80,11 +80,11 @@ public class CPUBenchmark2{
 	}
 
 	class FloatWorker2 extends Thread {
-		CPUBenchmark2 benchmark;
-		double runTime = CPUBenchmarkTime.runTime;
+		CPUBenchmarkFloat10_2 benchmark;
+		double runTime = CPUBenchmarkFloat10_2.runTime;
 		long startTime;
 
-		FloatWorker2(CPUBenchmark2 cpuBenchmark, long i) {
+		FloatWorker2(CPUBenchmarkFloat10_2 cpuBenchmark, long i) {
 			this.benchmark = cpuBenchmark;
 			this.startTime = i;
 		}
@@ -100,9 +100,9 @@ public class CPUBenchmark2{
 	}
 	class EmptyWorker extends Thread {
 		int count;
-		CPUBenchmark2 benchmark;
+		CPUBenchmarkFloat10_2 benchmark;
 
-		EmptyWorker(CPUBenchmark2 cpuBenchmark, int i, int load) {
+		EmptyWorker(CPUBenchmarkFloat10_2 cpuBenchmark, int i, int load) {
 			this.benchmark = cpuBenchmark;
 			this.count = i;
 		}

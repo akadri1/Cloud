@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 
-public class CPUBenchmarkInt2{
+public class CPUBenchmarkInt10_2{
 	public static final double runTime=1*1e9;
 	public double totalRun=0;
 	public static final int arrSize=20000;
@@ -18,24 +18,24 @@ public class CPUBenchmarkInt2{
 		}
 	}
 	public static void main(String[] args) throws InterruptedException, ExecutionException {
-		//Float
-		System.out.println("\n---------Floating point CPU--------\ntime"+runTime);
+		//Int
+		System.out.println("\n---------Integer point CPU--------\ntime"+runTime);
 
 		for(int i=0;i<4;i++){
 			int num = (int) Math.pow(2, i);
-			CPUBenchmarkInt2 prog = new CPUBenchmarkInt2();
+			CPUBenchmarkInt10_2 prog = new CPUBenchmarkInt10_2();
 			prog.generateRandAB();
-			prog.runBenchmarkFloat(num, 3, true);
+			prog.runBenchmarkInt(num, 3, true);
 		}
 	}
 
-	public void runBenchmarkFloat(int noOfThreads, int runs, boolean enablePrint) throws InterruptedException, ExecutionException {
-		FloatWorker2[] workers =new FloatWorker2[noOfThreads];
+	public void runBenchmarkInt(int noOfThreads, int runs, boolean enablePrint) throws InterruptedException, ExecutionException {
+		IntWorker2[] workers =new IntWorker2[noOfThreads];
 		DecimalFormat format = new DecimalFormat("#00.00");
 		
 		long startTime = System.nanoTime();
 		for (int i=0;i<noOfThreads;i++){
-			workers[i] = new FloatWorker2(this, startTime);
+			workers[i] = new IntWorker2(this, startTime);
 		}
 		//emptyLoop((int)totalRun);
 		//Minus time for empty loop
@@ -56,12 +56,12 @@ public class CPUBenchmarkInt2{
 		double gF = totalRun/(time);
 		
 		if(enablePrint)
-			System.out.println("\t GFLOPS:"+format.format(gF));
+			System.out.println("\t Run:"+totalRun+"\t time:"+time+"\tGFLOPS:"+format.format(gF));
 		//System.out.println("Bye");
 	}
 
 
-	void floatCPU(int count) {
+	void intCPU(int count) {
 		for(int j=0;j<count;j++){
 			for(int i=0; i <arrSize; i++){
 				a[i] = (a[i] + b[i])*2 + (a[i] * b[i])*3;
@@ -79,12 +79,12 @@ public class CPUBenchmarkInt2{
 		}
 	}
 
-	class FloatWorker2 extends Thread {
-		CPUBenchmarkInt2 benchmark;
-		double runTime = CPUBenchmarkInt2.runTime;
+	class IntWorker2 extends Thread {
+		CPUBenchmarkInt10_2 benchmark;
+		double runTime = CPUBenchmarkInt10_2.runTime;
 		long startTime;
 
-		FloatWorker2(CPUBenchmarkInt2 cpuBenchmark, long i) {
+		IntWorker2(CPUBenchmarkInt10_2 cpuBenchmark, long i) {
 			this.benchmark = cpuBenchmark;
 			this.startTime = i;
 		}
@@ -93,16 +93,16 @@ public class CPUBenchmarkInt2{
 		public void run() {
 			long mins =  System.nanoTime() - startTime;
 			while(mins<runTime) {
-				benchmark.floatCPU(1);
+				benchmark.intCPU(1);
 				mins =  System.nanoTime() - startTime;
 			}
 		}
 	}
 	class EmptyWorker extends Thread {
 		int count;
-		CPUBenchmarkInt2 benchmark;
+		CPUBenchmarkInt10_2 benchmark;
 
-		EmptyWorker(CPUBenchmarkInt2 cpuBenchmark, int i, int load) {
+		EmptyWorker(CPUBenchmarkInt10_2 cpuBenchmark, int i, int load) {
 			this.benchmark = cpuBenchmark;
 			this.count = i;
 		}
