@@ -4,7 +4,7 @@ import java.util.concurrent.ExecutionException;
 
 
 public class CPUBenchmarkInt10_2{
-	public static final double runTime=1*1e9;
+	public static final double runTime=10*60*1e9;
 	public double totalRun=0;
 	public static final int arrSize=20000;
 	public static int a[] = new int[arrSize];
@@ -56,7 +56,7 @@ public class CPUBenchmarkInt10_2{
 		double gF = totalRun/(time);
 		
 		if(enablePrint)
-			System.out.println("\t Run:"+totalRun+"\t time:"+time+"\tGFLOPS:"+format.format(gF));
+			System.out.println("\t Run:"+totalRun+"\t time:"+time+"\tGIOPS:"+format.format(gF));
 		//System.out.println("Bye");
 	}
 
